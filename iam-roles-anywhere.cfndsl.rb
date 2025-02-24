@@ -31,6 +31,11 @@ CloudFormation do
       Path '/'
       Policies iam_role_policies(properties['policies'])
     end
+
+    Output("#{name}IamRoleArn") {
+      Value FnGetAtt(name, "Arn")
+      Export FnSub("${EnvironmentName}-#{external_parameters[:component_name]}-#{name}-iam-role-arn")
+    }
   end
 
   # profiles
